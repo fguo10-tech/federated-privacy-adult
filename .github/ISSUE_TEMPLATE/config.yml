@@ -1,0 +1,10 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private security or privacy-accounting report
+    url: https://github.com/fguo10-tech/federated-privacy-adult
+    about: >-
+      Do not open a public issue. Follow SECURITY.md in the repository root: open the
+      repository's Security tab and choose "Report a vulnerability". This covers code
+      vulnerabilities, differential-privacy accounting errors, client-data leaks, released
+      quantities missing from the privacy table, committed secrets or sensitive data, and Code
+      of Conduct reports.

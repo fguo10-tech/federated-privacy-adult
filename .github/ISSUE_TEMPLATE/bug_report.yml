@@ -1,0 +1,71 @@
+name: Bug report
+description: Something in the code, configs, scripts or generated docs does not work as documented.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting. If the bug affects privacy accounting, leaks client rows across
+        the client boundary, lets the server predict a client's DP noise, or exposes a secret, do NOT file
+        it here: follow SECURITY.md and use the Security tab's "Report a vulnerability".
+
+        If your numbers simply differ from a reference value, use the "Replication report" form
+        instead.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - "Data loading and partitions (UCI Adult, synthetic toy domains, FEMNIST reader)"
+        - "Federated training and aggregation (Flower apps, strategy, in-process grid)"
+        - "Differential privacy (DP-SGD, accounting, released quantities)"
+        - "Baselines (centralised and local-only)"
+        - "Shared code (src/common, Makefile, CI, docs tooling)"
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: Output of `git rev-parse HEAD`.
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command
+      description: The full command, including `--config`, `--set` overrides, `--seeds` and `--smoke`.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened
+      description: Include the full traceback or log excerpt.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, and the package versions from `metadata.json` if a run directory exists (torch, flwr, opacus, scikit-learn, numpy, pandas).
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I reproduced this on a clean checkout after `make install`.
+          required: false
+        - label: This report contains no real personal, medical or financial data and no secrets.
+          required: true

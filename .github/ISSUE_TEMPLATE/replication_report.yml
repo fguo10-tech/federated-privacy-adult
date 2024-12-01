@@ -1,0 +1,120 @@
+name: Replication report
+description: You ran the federated benchmark independently. Report what you observed, whether it matched or not.
+title: "[Replication] "
+labels: ["replication"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A failed or partial replication is as useful as a successful one. This form suits, for
+        example, a federated systems researcher re-running the benchmark on other hardware, or an
+        industry privacy scientist re-running the epsilon sweep.
+
+        Accepted reports are recorded in docs/REPLICATIONS.md. Your name and affiliation are
+        listed only if you consent below. Replicators are credited as replicators; they are not
+        listed as authors and a replication is not presented as an endorsement.
+  - type: dropdown
+    id: setting
+    attributes:
+      label: Setting
+      options:
+        - "UCI Adult (workclass clients, IID control, epsilon sweep)"
+        - "UCI Adult, extended privacy study"
+        - "Synthetic toy domains"
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: Output of `git rev-parse HEAD` for the code you ran.
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command
+      description: The full command or Makefile target you ran, as typed.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: Config and overrides
+      description: Which YAML file, and every `--set key=value` override. Attach `config_used.yaml` from each run directory.
+    validations:
+      required: true
+  - type: input
+    id: seeds
+    attributes:
+      label: Seeds
+      description: The seeds you ran, for example 0 1 2 3 4.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Hardware and package versions
+      description: CPU or GPU model, RAM, OS, Python version and package versions. Attach `metadata.json`, which records them.
+    validations:
+      required: true
+  - type: textarea
+    id: comparison
+    attributes:
+      label: Observed versus reference values
+      description: |
+        For each metric: your mean ± sample std across seeds, the reference value from this
+        repository's docs that you compared against, and its source label ([Reproduced]). Attach
+        your summary CSV.
+      value: |
+        | Metric | Unit | Observed (mean ± std, n seeds) | Reference value | Reference label |
+        |---|---|---|---|---|
+        |  |  |  |  |  |
+    validations:
+      required: true
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Outcome
+      options:
+        - Reproduced
+        - Partially reproduced
+        - Not reproduced
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Differences and notes
+      description: Anything you changed, anything that surprised you, and your best explanation for any gap.
+  - type: textarea
+    id: attachments
+    attributes:
+      label: Attachments
+      description: Drag in the summary CSV, raw CSVs, `config_used.yaml` and `metadata.json`, or link to them.
+    validations:
+      required: true
+  - type: dropdown
+    id: credit
+    attributes:
+      label: Credit in docs/REPLICATIONS.md
+      options:
+        - List me anonymously
+        - List my name only
+        - List my name and affiliation
+    validations:
+      required: true
+  - type: input
+    id: credit_name
+    attributes:
+      label: Name and affiliation to list (only if you chose to be named)
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I did not modify the baselines, metrics, data split or privacy settings, or I describe every change above.
+          required: true
+        - label: No real personal, medical or financial data beyond the public UCI Adult download is attached.
+          required: true
