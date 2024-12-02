@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  MPLBACKEND: Agg
+  # CPU-only PyTorch wheels keep the install small and fast on GitHub runners.
+  PIP_EXTRA_INDEX_URL: https://download.pytorch.org/whl/cpu
+
+jobs:
+  lint:
+    name: Lint (ruff, black)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install linters
+        run: python -m pip install "ruff>=0.6" "black>=24.0"
+      - name: Ruff
+        run: python -m ruff check src tests experiments examples data
+      - name: Black
+        run: python -m black --check src tests experiments examples data
+
+  test:
+    name: Tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install
+        run: python -m pip install -e ".[notebooks,dev]"
+      - name: Unit tests (no network; Adult-only tests skip)
+        run: python -m pytest -m "not network and not flower_sim"
+
+  smoke:
+    name: Smoke experiment and docs check
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+      - name: Smoke run of the benchmark (tiny config, synthetic toy data only)
+        run: make smoke PYTHON=python
+      - name: Generated tables in the docs are up to date
+        run: make docs-check PYTHON=python
+      - name: Upload smoke outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-results
+          path: experiments/results/runs/
+          if-no-files-found: ignore
+          retention-days: 7

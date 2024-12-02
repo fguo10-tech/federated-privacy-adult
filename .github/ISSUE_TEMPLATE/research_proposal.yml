@@ -1,0 +1,97 @@
+name: Research proposal
+description: Propose a change that needs agreement before code (an RFC), or a new study built on this code.
+title: "[Proposal] "
+labels: ["research-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A proposal is required before changing the federation protocol, the aggregation rule
+        used for the Before / After comparison, metric definitions, the dataset or client split,
+        privacy accounting, or a public interface such as the Flower app handlers. See
+        CONTRIBUTING.md.
+
+        Typical proposers: a federated-learning security researcher adding an attack or
+        defence, a federated systems researcher adding an asynchronous or hierarchical variant,
+        an industry privacy scientist changing the accountant, or a distributed-optimisation researcher
+        changing the server optimiser.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options:
+        - Federation protocol
+        - Aggregation rule
+        - Metric definitions
+        - Dataset or client split
+        - Privacy accounting
+        - Public interface (Flower app handlers, config schema, CSV columns)
+        - New method or study, no change to existing semantics
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Research question
+    validations:
+      required: true
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Hypothesis
+      description: What you expect to find, stated so that it can turn out false.
+    validations:
+      required: true
+  - type: textarea
+    id: design
+    attributes:
+      label: Experimental design
+      description: Methods compared, baselines, metrics, seeds (at least 5 reporting seeds; tuning on seeds 100 and above), and what changes in the code and configs.
+    validations:
+      required: true
+  - type: textarea
+    id: falsification
+    attributes:
+      label: Evidence that would change the conclusion
+      description: What result would make you reject the hypothesis or the proposed change.
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Effect on existing results
+      description: Which existing [Reproduced] numbers would become stale and need a new reference run, and which interfaces would break.
+    validations:
+      required: true
+  - type: textarea
+    id: data_sources
+    attributes:
+      label: Data sources
+      description: Every dataset, its licence, where it is downloaded from, and how it is checksummed.
+    validations:
+      required: true
+  - type: checkboxes
+    id: data_confirmation
+    attributes:
+      label: Data confirmation
+      options:
+        - label: The proposal uses no real medical, financial or personal data other than public datasets downloaded by script into git-ignored folders; only generators, download scripts, checksums and tiny synthetic fixtures would be committed.
+          required: true
+  - type: textarea
+    id: compute
+    attributes:
+      label: Compute needs
+      description: CPU or GPU, expected wall-clock time per seed, and whether a smoke variant can stay under 30 seconds on a laptop CPU.
+    validations:
+      required: true
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: Will you implement it?
+      options:
+        - Yes, I will open the pull request
+        - I can help, but need a co-implementer
+        - No, I am proposing it for others
+    validations:
+      required: true

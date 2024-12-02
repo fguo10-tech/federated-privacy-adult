@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+
+# Data: never commit downloaded or generated datasets.
+# Generators, download scripts, checksums and tiny test fixtures are committed instead.
+data/cache/
+data/adult/
+data/femnist/
+data/synthetic/*.csv
+data/synthetic/*.npz
+!data/synthetic/samples/
+
+# Experiment outputs: only the reference run behind the [Reproduced] numbers is committed.
+experiments/results/runs/
+notebooks/_executed/
+*.pt
+*.ckpt
+
+# Secrets
+.env
+*.pem
+*.key
