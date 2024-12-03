@@ -1,0 +1,71 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software, please cite it using the metadata in this file, and cite the source
+  paper listed under "references". This is a draft reference implementation: see
+  experiments/results/RESULTS.md for the values it produces and the conditions under which it
+  produces them.
+title: "federated-privacy-adult: sample-weighted federated averaging with differential privacy on UCI Adult"
+type: software
+authors:
+  - family-names: Guo
+    given-names: Fan
+repository-code: "https://github.com/fguo10-tech/federated-privacy-adult"
+version: 0.1.0.dev0
+license: Apache-2.0
+abstract: >-
+  Draft, reproducible reference implementation of federated learning with differential privacy,
+  for researchers who need to train one model across data owners that cannot pool their raw
+  data, under an explicit privacy budget, and who want to run, benchmark and extend it. It provides Flower-based
+  sample-weighted federated averaging with Opacus DP-SGD and Renyi accounting on the UCI Adult /
+  Census Income dataset (1994 U.S. Census extraction), with three workclass-based clients, an
+  IID control, centralised and local-only baselines, robust aggregation rules under Byzantine
+  clients, a secure-aggregation simulation and an epsilon sweep. Results are reported as a
+  Before / After comparison under documented conditions. Every number in the documentation is labelled Paper-reported, Reproduced
+  or Target / TBD.
+keywords:
+  - federated learning
+  - differential privacy
+  - Flower
+  - Opacus
+  - UCI Adult
+  - reproducibility
+references:
+  - type: conference-paper
+    title: "Federated Learning for Cross-Domain Data Privacy: A Distributed Approach to Secure Collaboration"
+    authors:
+      - family-names: Zhang
+        given-names: Yiwei
+      - family-names: Liu
+        given-names: Jie
+      - family-names: Wang
+        given-names: Jiawei
+      - family-names: Dai
+        given-names: Lu
+      - family-names: Guo
+        given-names: Fan
+      - family-names: Cai
+        given-names: Guohui
+    year: 2025
+    collection-title: "2025 8th International Symposium on Big Data and Applied Statistics (ISBDAS)"
+    collection-type: proceedings
+    start: 824
+    end: 828
+    doi: "10.1109/ISBDAS64762.2025.11116917"
+    url: "https://ieeexplore.ieee.org/document/11116917/"
+    identifiers:
+      - type: other
+        value: "arXiv:2504.00282"
+        description: arXiv preprint
+  - type: data
+    title: "Adult"
+    authors:
+      - family-names: Becker
+        given-names: Barry
+      - family-names: Kohavi
+        given-names: Ronny
+    year: 1996
+    publisher:
+      name: "UCI Machine Learning Repository"
+    doi: "10.24432/C5XW20"
+    url: "http://archive.ics.uci.edu/ml/datasets/Adult"
+    notes: "Extracted from the 1994 U.S. Census database; licence CC BY 4.0."
