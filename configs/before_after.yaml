@@ -1,0 +1,103 @@
+# Before / After comparison definitions.
+#
+# These are reporting settings — which methods are compared, how metrics are named, oriented
+# and rounded. They are not model hyperparameters and they change no measured value.
+# `python -m experiments.build_results` reads this file and the summary CSV files of the
+# reference run, and writes every Before / After table, CSV and chart from them.
+#
+# Rules applied to every row (implemented in src/common/before_after.py):
+#   Delta = After − Before, in the metric's own unit.
+#   Higher is better: Improvement % = (After − Before) / |Before| × 100.
+#   Lower is better:  Improvement % = (Before − After) / |Before| × 100.
+#   |Before| <= near_zero  ->  "N/A — baseline zero / not comparable" instead of a percentage.
+#   A side that has not been run -> TBD. A regression is shown as a negative percentage.
+
+# Folder that holds the reference run (relative to the repository root).
+reference_root: experiments/results/reference
+# Where the generated Markdown blocks are written (injected into the docs by sync_docs).
+generated_dir: experiments/results/reference/generated
+# Where the Before / After CSVs and charts are written, side by side.
+before_after_dir: experiments/results/reference/before_after
+# Where header-only CSV schema templates are written.
+templates_dir: experiments/results/templates
+
+federated:
+  # Heading used for the tables and the charts.
+  title: "Federated learning on UCI Adult"
+  # First line of every federated results section (required wording).
+  dataset_line: "Dataset: UCI Adult / Census Income (1994 U.S. Census extraction; 48,842 rows; workclass clients Private / Government / Self-employed plus IID control)"
+  # Summary CSV of the reference run, relative to reference_root.
+  summary_csv: federated_adult/summary.csv
+  # Per-client partition statistics of the reference run.
+  partition_stats_csv: federated_adult/partition_stats.csv
+  # Benchmark suite whose rows are used.
+  suite: main
+  # Client splits and their display names; the first one is the primary split.
+  splits:
+    workclass: workclass clients
+    iid: IID control
+  # Display names.
+  method_labels:
+    svm: SVM (centralised)
+    random_forest: Random Forest (centralised)
+    decision_tree: Decision Tree (centralised)
+    centralised_mlp: Centralised MLP (upper bound)
+    centralised_mlp_client_rows: Centralised MLP (client rows only)
+    majority_class: Majority class
+    local_only: Local-only (mean of 3 client models)
+    fedavg: Weighted FedAvg (no DP)
+    fedavg_dp_eps8: Weighted FedAvg + DP (ε = 8)
+    fedavg_dp_eps3: Weighted FedAvg + DP (ε = 3)
+    fedavg_dp_eps1: Weighted FedAvg + DP (ε = 1)
+  # Methods that are trained once on pooled rows and therefore do not depend on the split.
+  split_independent_methods: [svm, random_forest, decision_tree, centralised_mlp, centralised_mlp_client_rows, majority_class]
+  # [Before, After] pairs. Weighted FedAvg without DP is the After method against the
+  # centralised and local-only baselines, and the Before method against the DP runs.
+  pairs:
+    - [svm, fedavg]
+    - [random_forest, fedavg]
+    - [decision_tree, fedavg]
+    - [centralised_mlp, fedavg]
+    - [local_only, fedavg]
+    - [fedavg, fedavg_dp_eps8]
+    - [fedavg, fedavg_dp_eps3]
+    - [fedavg, fedavg_dp_eps1]
+  # Rows of the short version shown in the README, poster and slides (primary split only).
+  summary_metrics: [accuracy, f1]
+  summary_pairs:
+    - [svm, fedavg]
+    - [random_forest, fedavg]
+    - [decision_tree, fedavg]
+    - [centralised_mlp, fedavg]
+    - [local_only, fedavg]
+    - [fedavg, fedavg_dp_eps8]
+    - [fedavg, fedavg_dp_eps3]
+    - [fedavg, fedavg_dp_eps1]
+  # Bars of the chart, in order, with their role.
+  chart_methods:
+    - {method: svm, role: before, short: SVM}
+    - {method: random_forest, role: before, short: RF}
+    - {method: decision_tree, role: before, short: DT}
+    - {method: centralised_mlp, role: before, short: Central MLP}
+    - {method: local_only, role: before, short: Local-only}
+    - {method: fedavg, role: after, short: FedAvg}
+    - {method: fedavg_dp_eps8, role: after, short: "DP ε=8"}
+    - {method: fedavg_dp_eps3, role: after, short: "DP ε=3"}
+    - {method: fedavg_dp_eps1, role: after, short: "DP ε=1"}
+  # The privacy sweep, from most to least private, for the tradeoff table and chart.
+  epsilon_conditions:
+    - {method: fedavg_dp_eps1, label: "1"}
+    - {method: fedavg_dp_eps3, label: "3"}
+    - {method: fedavg_dp_eps8, label: "8"}
+    - {method: fedavg, label: "∞"}
+  metrics:
+    - {key: accuracy, label: Accuracy, unit: fraction, higher_is_better: true, near_zero: 1.0e-9, digits: 4, scale: 1.0}
+    - {key: f1, label: "F1 (class >50K)", unit: fraction, higher_is_better: true, near_zero: 1.0e-9, digits: 4, scale: 1.0}
+    - {key: precision, label: "Precision (class >50K)", unit: fraction, higher_is_better: true, near_zero: 1.0e-9, digits: 4, scale: 1.0}
+    - {key: recall, label: "Recall (class >50K)", unit: fraction, higher_is_better: true, near_zero: 1.0e-9, digits: 4, scale: 1.0}
+    # Largest minus smallest accuracy across the Private / Government / Self-employed test rows.
+    - {key: fairness_gap_accuracy, label: Per-client fairness gap (accuracy), unit: fraction, higher_is_better: false, near_zero: 0.001, digits: 4, scale: 1.0}
+    # Model bytes sent up and down over all rounds; zero for methods that never communicate.
+    - {key: bytes_total, label: Communication cost, unit: MB, higher_is_better: false, near_zero: 1.0e-6, digits: 3, scale: 1.0e-6}
+    # Largest per-client ε spent; ∞ for runs without differential privacy.
+    - {key: epsilon_max, label: Privacy budget ε, unit: ε, higher_is_better: false, near_zero: 1.0e-9, digits: 2, scale: 1.0}
