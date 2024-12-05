@@ -1,0 +1,42 @@
+# Extended differential-privacy study on UCI Adult. Inherits every setting of
+# federated_adult.yaml (same clients, rounds, seeds, model and optimizer) and replaces only
+# the DP sweep: a finer epsilon grid, alternative clipping norms, and fixed_noise mode.
+# Run with:  python -m experiments.run_federated_benchmark --config configs/federated_dp.yaml --suite main
+# Every DP value (epsilon, delta, mechanism, clipping norm, accountant) is
+# [Assumption — not in paper]: chosen by this repository.
+# Guarantee of every row: record-level (epsilon, delta)-DP of each client's training rows
+# w.r.t. the updates it sends, against an honest-but-curious server; not client-level, not
+# covering tuning, the reported num-examples, or train_fitted scaling statistics.
+
+base_config: federated_adult.yaml     # parent config (path relative to this file). [Assumption — not in paper]
+
+experiment:                           # run identity: name, seeds, output folder. [Assumption — not in paper]
+  name: federated_adult_dp_extended   # run name written to metadata. [Assumption — not in paper]
+  output_dir: experiments/results/runs/federated_adult_dp   # default --out folder. [Assumption — not in paper]
+
+dp:                                   # differential-privacy settings (DP-SGD via Opacus). [Assumption — not in paper]
+  delta: 1.0e-5                       # DP delta per client (below 1 / smallest client size, about 3,657 rows). [Assumption — not in paper]
+  accountant: rdp                     # Opacus RDP accountant. [Assumption — not in paper]
+  epsilon_tolerance: 0.01             # precision of the noise-multiplier binary search (epsilon units). [Assumption — not in paper]
+  sweep:                              # extended sweep; each entry is one FedAvg + DP-SGD condition. [Assumption — not in paper]
+    - {name: fedavg_dp_eps0.1, mode: target_epsilon, target_epsilon: 0.1, noise_multiplier: null, max_grad_norm: 2.0}   # target epsilon 0.1 over all rounds, clip 2.0 (needs the extended RDP orders of src/federated/privacy.py). [Assumption — not in paper]
+    - {name: fedavg_dp_eps0.3, mode: target_epsilon, target_epsilon: 0.3, noise_multiplier: null, max_grad_norm: 2.0}   # target epsilon 0.3, clip 2.0. [Assumption — not in paper]
+    - {name: fedavg_dp_eps0.5, mode: target_epsilon, target_epsilon: 0.5, noise_multiplier: null, max_grad_norm: 2.0}   # target epsilon 0.5 over all rounds, clip 2.0 (L2). [Assumption — not in paper]
+    - {name: fedavg_dp_eps1, mode: target_epsilon, target_epsilon: 1.0, noise_multiplier: null, max_grad_norm: 2.0}     # target epsilon 1, clip 2.0. [Assumption — not in paper]
+    - {name: fedavg_dp_eps2, mode: target_epsilon, target_epsilon: 2.0, noise_multiplier: null, max_grad_norm: 2.0}     # target epsilon 2, clip 2.0. [Assumption — not in paper]
+    - {name: fedavg_dp_eps3, mode: target_epsilon, target_epsilon: 3.0, noise_multiplier: null, max_grad_norm: 2.0}     # target epsilon 3, clip 2.0. [Assumption — not in paper]
+    - {name: fedavg_dp_eps5, mode: target_epsilon, target_epsilon: 5.0, noise_multiplier: null, max_grad_norm: 2.0}     # target epsilon 5, clip 2.0. [Assumption — not in paper]
+    - {name: fedavg_dp_eps8, mode: target_epsilon, target_epsilon: 8.0, noise_multiplier: null, max_grad_norm: 2.0}     # target epsilon 8, clip 2.0. [Assumption — not in paper]
+    - {name: fedavg_dp_eps16, mode: target_epsilon, target_epsilon: 16.0, noise_multiplier: null, max_grad_norm: 2.0}   # target epsilon 16, clip 2.0. [Assumption — not in paper]
+    - {name: fedavg_dp_eps3_clip0.5, mode: target_epsilon, target_epsilon: 3.0, noise_multiplier: null, max_grad_norm: 0.5}   # clipping ablation at epsilon 3: clip 0.5. [Assumption — not in paper]
+    - {name: fedavg_dp_eps3_clip1, mode: target_epsilon, target_epsilon: 3.0, noise_multiplier: null, max_grad_norm: 1.0}     # clipping ablation at epsilon 3: clip 1.0. [Assumption — not in paper]
+    - {name: fedavg_dp_eps3_clip4, mode: target_epsilon, target_epsilon: 3.0, noise_multiplier: null, max_grad_norm: 4.0}     # clipping ablation at epsilon 3: clip 4.0. [Assumption — not in paper]
+    - {name: fedavg_dp_sigma0.5, mode: fixed_noise, target_epsilon: null, noise_multiplier: 0.5, max_grad_norm: 2.0}  # fixed_noise: noise multiplier 0.5, report the resulting epsilon. [Assumption — not in paper]
+    - {name: fedavg_dp_sigma1, mode: fixed_noise, target_epsilon: null, noise_multiplier: 1.0, max_grad_norm: 2.0}    # fixed_noise: noise multiplier 1.0. [Assumption — not in paper]
+    - {name: fedavg_dp_sigma2, mode: fixed_noise, target_epsilon: null, noise_multiplier: 2.0, max_grad_norm: 2.0}    # fixed_noise: noise multiplier 2.0. [Assumption — not in paper]
+
+smoke_overrides:                      # extends the parent's smoke block. [Assumption — not in paper]
+  dp:                                 # differential-privacy settings (DP-SGD via Opacus). [Assumption — not in paper]
+    sweep:                            # two conditions only in smoke runs. [Assumption — not in paper]
+      - {name: fedavg_dp_eps1, mode: target_epsilon, target_epsilon: 1.0, noise_multiplier: null, max_grad_norm: 2.0}   # target epsilon 1. [Assumption — not in paper]
+      - {name: fedavg_dp_sigma1, mode: fixed_noise, target_epsilon: null, noise_multiplier: 1.0, max_grad_norm: 2.0}    # noise multiplier 1. [Assumption — not in paper]
