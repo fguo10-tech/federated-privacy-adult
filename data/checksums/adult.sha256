@@ -1,0 +1,6 @@
+# SHA-256 of the UCI Adult files, recorded by data/download_adult.py.
+# UCI publishes no checksums: this is a trust-on-first-use pin made on 2024-11-20 from https://archive.ics.uci.edu/ml/machine-learning-databases/adult/
+# Later downloads and loads are verified against it.
+5b00264637dbfec36bdeaab5676b0b309ff9eb788d63554ca0a249491c86603d  adult.data
+c248284c0b5de30c9e1958d6cdd168a34a654758b620e68f46aefa83fc0a576a  adult.names
+a2a9044bc167a35b2361efbabec64e89d69ce82d9790d2980119aac5fd7e9c05  adult.test
