@@ -1,0 +1,296 @@
+% Bibliography for the federated-privacy-adult documentation.
+% Every entry was checked against a primary source (publisher page, proceedings, arXiv or
+% Crossref) on 2024-11-19. Entries are cited in the documentation by key.
+
+% ---------------------------------------------------------------------------- source paper
+@inproceedings{zhang2025federated,
+  author    = {Zhang, Yiwei and Liu, Jie and Wang, Jiawei and Dai, Lu and Guo, Fan and Cai, Guohui},
+  title     = {Federated Learning for Cross-Domain Data Privacy: A Distributed Approach to Secure Collaboration},
+  booktitle = {2025 8th International Symposium on Big Data and Applied Statistics (ISBDAS)},
+  pages     = {824--828},
+  year      = {2025},
+  publisher = {IEEE},
+  doi       = {10.1109/ISBDAS64762.2025.11116917},
+  eprint    = {2504.00282},
+  archivePrefix = {arXiv},
+  url       = {https://ieeexplore.ieee.org/document/11116917/}
+}
+
+% ---------------------------------------------------------------------------- datasets
+@misc{becker1996adult,
+  author       = {Becker, Barry and Kohavi, Ronny},
+  title        = {Adult},
+  year         = {1996},
+  howpublished = {UCI Machine Learning Repository},
+  doi          = {10.24432/C5XW20},
+  url          = {http://archive.ics.uci.edu/ml/datasets/Adult},
+  note         = {Extracted from the 1994 U.S. Census database; donated on 1996-04-30; CC BY 4.0}
+}
+
+@inproceedings{kohavi1996scaling,
+  author    = {Kohavi, Ron},
+  title     = {Scaling Up the Accuracy of Naive-{Bayes} Classifiers: a Decision-Tree Hybrid},
+  booktitle = {Proceedings of the Second International Conference on Knowledge Discovery and Data Mining (KDD)},
+  pages     = {202--207},
+  year      = {1996},
+  publisher = {AAAI Press}
+}
+
+@inproceedings{ding2021retiring,
+  author    = {Ding, Frances and Hardt, Moritz and Miller, John and Schmidt, Ludwig},
+  title     = {Retiring {Adult}: New Datasets for Fair Machine Learning},
+  booktitle = {Advances in Neural Information Processing Systems 34 (NeurIPS)},
+  year      = {2021}
+}
+
+@misc{caldas2018leaf,
+  author        = {Caldas, Sebastian and Duddu, Sai Meher Karthik and Wu, Peter and Li, Tian and Kone{\v{c}}n{\'y}, Jakub and McMahan, H. Brendan and Smith, Virginia and Talwalkar, Ameet},
+  title         = {{LEAF}: A Benchmark for Federated Settings},
+  year          = {2018},
+  eprint        = {1812.01097},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/1812.01097}
+}
+
+% ---------------------------------------------------------------------------- federated learning
+@inproceedings{mcmahan2017communication,
+  author    = {McMahan, H. Brendan and Moore, Eider and Ramage, Daniel and Hampson, Seth and Ag{\"u}era y Arcas, Blaise},
+  title     = {Communication-Efficient Learning of Deep Networks from Decentralized Data},
+  booktitle = {Proceedings of the 20th International Conference on Artificial Intelligence and Statistics (AISTATS)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {54},
+  year      = {2017},
+  eprint    = {1602.05629},
+  archivePrefix = {arXiv}
+}
+
+@article{kairouz2021advances,
+  author  = {Kairouz, Peter and McMahan, H. Brendan and others},
+  title   = {Advances and Open Problems in Federated Learning},
+  journal = {Foundations and Trends in Machine Learning},
+  volume  = {14},
+  number  = {1--2},
+  pages   = {1--210},
+  year    = {2021},
+  doi     = {10.1561/2200000083}
+}
+
+@article{li2020federated,
+  author  = {Li, Tian and Sahu, Anit Kumar and Talwalkar, Ameet and Smith, Virginia},
+  title   = {Federated Learning: Challenges, Methods, and Future Directions},
+  journal = {IEEE Signal Processing Magazine},
+  year    = {2020},
+  doi     = {10.1109/MSP.2020.2975749}
+}
+
+@misc{zhao2018federated,
+  author        = {Zhao, Yue and Li, Meng and Lai, Liangzhen and Suda, Naveen and Civin, Damon and Chandra, Vikas},
+  title         = {Federated Learning with Non-{IID} Data},
+  year          = {2018},
+  eprint        = {1806.00582},
+  archivePrefix = {arXiv}
+}
+
+@misc{hsu2019measuring,
+  author        = {Hsu, Tzu-Ming Harry and Qi, Hang and Brown, Matthew},
+  title         = {Measuring the Effects of Non-Identical Data Distribution for Federated Visual Classification},
+  year          = {2019},
+  eprint        = {1909.06335},
+  archivePrefix = {arXiv}
+}
+
+@misc{beutel2020flower,
+  author        = {Beutel, Daniel J. and others},
+  title         = {Flower: A Friendly Federated Learning Research Framework},
+  year          = {2020},
+  eprint        = {2007.14390},
+  archivePrefix = {arXiv}
+}
+
+% ---------------------------------------------------------------------------- privacy and robustness
+@inproceedings{dwork2006calibrating,
+  author    = {Dwork, Cynthia and McSherry, Frank and Nissim, Kobbi and Smith, Adam},
+  title     = {Calibrating Noise to Sensitivity in Private Data Analysis},
+  booktitle = {Theory of Cryptography Conference (TCC)},
+  series    = {Lecture Notes in Computer Science},
+  pages     = {265--284},
+  year      = {2006},
+  doi       = {10.1007/11681878_14}
+}
+
+@article{dwork2014algorithmic,
+  author  = {Dwork, Cynthia and Roth, Aaron},
+  title   = {The Algorithmic Foundations of Differential Privacy},
+  journal = {Foundations and Trends in Theoretical Computer Science},
+  volume  = {9},
+  number  = {3--4},
+  pages   = {211--487},
+  year    = {2014},
+  doi     = {10.1561/0400000042}
+}
+
+@inproceedings{abadi2016deep,
+  author    = {Abadi, Mart{\'i}n and Chu, Andy and Goodfellow, Ian and McMahan, H. Brendan and Mironov, Ilya and Talwar, Kunal and Zhang, Li},
+  title     = {Deep Learning with Differential Privacy},
+  booktitle = {Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security (CCS)},
+  pages     = {308--318},
+  year      = {2016},
+  doi       = {10.1145/2976749.2978318}
+}
+
+@inproceedings{mironov2017renyi,
+  author    = {Mironov, Ilya},
+  title     = {R{\'e}nyi Differential Privacy},
+  booktitle = {2017 IEEE 30th Computer Security Foundations Symposium (CSF)},
+  pages     = {263--275},
+  year      = {2017},
+  doi       = {10.1109/CSF.2017.11}
+}
+
+@inproceedings{mcmahan2018learning,
+  author    = {McMahan, H. Brendan and Ramage, Daniel and Talwar, Kunal and Zhang, Li},
+  title     = {Learning Differentially Private Recurrent Language Models},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2018},
+  eprint    = {1710.06963},
+  archivePrefix = {arXiv}
+}
+
+@misc{geyer2017differentially,
+  author        = {Geyer, Robin C. and Klein, Tassilo and Nabi, Moin},
+  title         = {Differentially Private Federated Learning: A Client Level Perspective},
+  year          = {2017},
+  eprint        = {1712.07557},
+  archivePrefix = {arXiv}
+}
+
+@misc{yousefpour2021opacus,
+  author        = {Yousefpour, Ashkan and others},
+  title         = {Opacus: User-Friendly Differential Privacy Library in {PyTorch}},
+  year          = {2021},
+  eprint        = {2109.12298},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{bonawitz2017practical,
+  author    = {Bonawitz, Keith and Ivanov, Vladimir and Kreuter, Ben and Marcedone, Antonio and McMahan, H. Brendan and Patel, Sarvar and Ramage, Daniel and Segal, Aaron and Seth, Karn},
+  title     = {Practical Secure Aggregation for Privacy-Preserving Machine Learning},
+  booktitle = {Proceedings of the 2017 ACM SIGSAC Conference on Computer and Communications Security (CCS)},
+  pages     = {1175--1191},
+  year      = {2017}
+}
+
+@inproceedings{zhu2019deep,
+  author    = {Zhu, Ligeng and Liu, Zhijian and Han, Song},
+  title     = {Deep Leakage from Gradients},
+  booktitle = {Advances in Neural Information Processing Systems 32 (NeurIPS)},
+  year      = {2019},
+  eprint    = {1906.08935},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{yin2018byzantine,
+  author    = {Yin, Dong and Chen, Yudong and Ramchandran, Kannan and Bartlett, Peter},
+  title     = {Byzantine-Robust Distributed Learning: Towards Optimal Statistical Rates},
+  booktitle = {Proceedings of the 35th International Conference on Machine Learning (ICML)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {80},
+  pages     = {5650--5659},
+  year      = {2018}
+}
+
+@inproceedings{blanchard2017machine,
+  author    = {Blanchard, Peva and El Mhamdi, El Mahdi and Guerraoui, Rachid and Stainer, Julien},
+  title     = {Machine Learning with Adversaries: Byzantine Tolerant Gradient Descent},
+  booktitle = {Advances in Neural Information Processing Systems 30 (NIPS)},
+  year      = {2017}
+}
+
+% ---------------------------------------------------------------------------- software
+@inproceedings{paszke2019pytorch,
+  author    = {Paszke, Adam and others},
+  title     = {{PyTorch}: An Imperative Style, High-Performance Deep Learning Library},
+  booktitle = {Advances in Neural Information Processing Systems 32 (NeurIPS)},
+  year      = {2019}
+}
+
+@article{pedregosa2011scikit,
+  author  = {Pedregosa, Fabian and others},
+  title   = {Scikit-learn: Machine Learning in {Python}},
+  journal = {Journal of Machine Learning Research},
+  volume  = {12},
+  pages   = {2825--2830},
+  year    = {2011}
+}
+
+% ------------------------------------------------- work of the illustrative target researchers
+% Cited only in the collaboration chapter of the project report. None of these authors is a
+% collaborator, co-author, endorser or advisor of this project.
+@article{hudson2024qos,
+  author  = {Hudson, Nathaniel and Khamfroush, Hana and Baughman, Matt and Lucani, Daniel E. and Chard, Kyle and Foster, Ian},
+  title   = {{QoS}-aware edge {AI} placement and scheduling with multiple implementations in {FaaS}-based edge computing},
+  journal = {Future Generation Computer Systems},
+  volume  = {157},
+  pages   = {250--263},
+  year    = {2024},
+  doi     = {10.1016/j.future.2024.03.035}
+}
+
+@misc{hudson2024flight,
+  author        = {Hudson, Nathaniel and Hayot-Sasson, Valerie and Babuji, Yadu and Baughman, Matt and Pauloski, J. Gregory and Chard, Ryan and Foster, Ian and Chard, Kyle},
+  title         = {Flight: A {FaaS}-Based Framework for Complex and Hierarchical Federated Learning},
+  year          = {2024},
+  eprint        = {2409.16495},
+  archivePrefix = {arXiv},
+  note          = {Journal version in Future Generation Computer Systems, vol. 174}
+}
+
+@inproceedings{yang2024distributed,
+  author    = {Yang, Yuxin and Li, Qiang and Jia, Jinyuan and Hong, Yuan and Wang, Binghui},
+  title     = {Distributed Backdoor Attacks on Federated Graph Learning and Certified Defenses},
+  booktitle = {Proceedings of the 2024 ACM SIGSAC Conference on Computer and Communications Security (CCS)},
+  year      = {2024},
+  eprint    = {2407.08935},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{arevalo2024task,
+  author    = {Arevalo, Caridad Arroyo and Noorbakhsh, Sayedeh Leila and Dong, Yun and Hong, Yuan and Wang, Binghui},
+  title     = {Task-Agnostic Privacy-Preserving Representation Learning for Federated Learning Against Attribute Inference Attacks},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  year      = {2024},
+  eprint    = {2312.06989},
+  archivePrefix = {arXiv}
+}
+
+@misc{nam2025rhychee,
+  author = {Nam, Yujin and Moitra, Abhishek and Venkatesha, Yeshwanth and Yu, Xiaofan and De Micheli, Gabrielle and Wang, Xuan and Zhou, Minxuan and Vega, Augusto and Panda, Priyadarshini and Rosing, Tajana},
+  title  = {{Rhychee-FL}: Robust and Efficient Hyperdimensional Federated Learning with Homomorphic Encryption},
+  year   = {2025},
+  note   = {Listed as Design, Automation and Test in Europe (DATE) 2025 on the co-author's publication page; venue not independently confirmed by this project}
+}
+
+@misc{jin2023fedmlhe,
+  author        = {Jin, Weizhao and Yao, Yuhang and Han, Shanshan and Gu, Jiajun and Joe-Wong, Carlee and Ravi, Srivatsan and Avestimehr, Salman and He, Chaoyang},
+  title         = {{FedML-HE}: An Efficient Homomorphic-Encryption-Based Privacy-Preserving Federated Learning System},
+  year          = {2023},
+  eprint        = {2303.10837},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{jiang2023correlation,
+  author    = {Jiang, Shuli and Sharma, Pranay and Joshi, Gauri},
+  title     = {Correlation Aware Sparsified Mean Estimation Using Random Projection},
+  booktitle = {Advances in Neural Information Processing Systems 36 (NeurIPS)},
+  year      = {2023},
+  eprint    = {2310.18868},
+  archivePrefix = {arXiv}
+}
+
+@misc{jiang2025improving,
+  author        = {Jiang, Shuli and Sharma, Pranay and Wu, Zhiwei Steven and Joshi, Gauri},
+  title         = {Improving the Convergence of Private Shuffled Gradient Methods with Public Data},
+  year          = {2025},
+  eprint        = {2502.03652},
+  archivePrefix = {arXiv}
+}
