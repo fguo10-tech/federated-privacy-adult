@@ -1,0 +1,143 @@
+experiment:
+  name: federated_adult
+  seeds:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  output_dir: experiments/results/runs/federated_adult
+dataset:
+  kind: adult
+  adult:
+    data_dir: data/adult
+    checksum_file: data/checksums/adult.sha256
+    verify_checksums: true
+    expect_full_size: true
+    scaling: fixed_public
+    fixed_public:
+      education-num:
+        log1p: false
+        divisor: 16.0
+      capital-gain:
+        log1p: true
+        divisor: 12.0
+      capital-loss:
+        log1p: true
+        divisor: 12.0
+      hours-per-week:
+        log1p: false
+        divisor: 100.0
+    age_bands:
+    - - 17
+      - 24
+    - - 25
+      - 34
+    - - 35
+      - 44
+    - - 45
+      - 54
+    - - 55
+      - 64
+    - - 65
+      - 90
+  synthetic: null
+  femnist: null
+evaluation:
+  eval_on: test
+  validation_fraction: 0.2
+  group_attributes:
+  - sex
+  - race
+  - age_band
+model:
+  hidden_sizes:
+  - 128
+  - 64
+training:
+  rounds: 20
+  local_epochs: 1
+  batch_size: 64
+  learning_rate: 0.01
+  momentum: 0.9
+  weight_decay: 0.0
+  centralised_epochs: 20
+federation:
+  aggregation_rule: weighted
+  trimmed_mean_beta: 0.2
+  fraction_evaluate: 0.0
+  engine: inprocess
+dp:
+  delta: 1.0e-05
+  accountant: rdp
+  epsilon_tolerance: 0.01
+  sweep:
+  - name: fedavg_dp_eps8
+    mode: target_epsilon
+    target_epsilon: 8.0
+    noise_multiplier: null
+    max_grad_norm: 2.0
+  - name: fedavg_dp_eps3
+    mode: target_epsilon
+    target_epsilon: 3.0
+    noise_multiplier: null
+    max_grad_norm: 2.0
+  - name: fedavg_dp_eps1
+    mode: target_epsilon
+    target_epsilon: 1.0
+    noise_multiplier: null
+    max_grad_norm: 2.0
+partitions:
+  splits:
+  - workclass
+  - iid
+  ablations:
+  - iid_size_matched
+  - label_skew
+  - quantity_skew
+  label_skew_alpha: 0.5
+  quantity_skew:
+    kind: dirichlet
+    alpha: 1.0
+    exponent: 1.5
+  min_client_rows: 500
+  max_resample_attempts: 100
+baselines:
+  methods:
+  - centralised_mlp
+  - centralised_mlp_client_rows
+  - svm
+  - random_forest
+  - decision_tree
+  - majority_class
+  svm:
+    kernel: rbf
+    C: 1.0
+    gamma: scale
+    cache_size_mb: 1000.0
+  random_forest:
+    n_estimators: 200
+    max_depth: null
+    min_samples_leaf: 2
+  decision_tree:
+    max_depth: 10
+    min_samples_leaf: 5
+robustness:
+  num_clients: 10
+  num_byzantine: 2
+  attack:
+    kind: sign_flip
+    scale_factor: 10.0
+    noise_std: 1.0
+  aggregation_rules:
+  - weighted
+  - coordinate_median
+  - trimmed_mean
+aggregation_suite:
+  split: workclass
+  rules:
+  - weighted
+  - unweighted
+runtime:
+  workers: 8
+  torch_threads: 1
