@@ -1,0 +1,7 @@
+split,seed,client,rows,positives,positive_rate,share_of_client_rows,composition
+main:workclass,0,Private,22696,4963,0.21867289390200917,0.7391870766023971,Private:22696
+main:workclass,0,Government,4351,1341,0.30820501034245,0.1417079207920792,Federal-gov:960;Local-gov:2093;State-gov:1298
+main:workclass,0,Self-employed,3657,1346,0.36806125239267157,0.11910500260552372,Self-emp-inc:1116;Self-emp-not-inc:2541
+main:iid,0,iid_0,10235,2619,0.2558866634098681,0.3333441896821261,Federal-gov:338;Local-gov:735;Private:7525;Self-emp-inc:377;Self-emp-not-inc:855;State-gov:405
+main:iid,0,iid_1,10235,2500,0.24425989252564728,0.3333441896821261,Federal-gov:322;Local-gov:678;Private:7582;Self-emp-inc:369;Self-emp-not-inc:842;State-gov:442
+main:iid,0,iid_2,10234,2531,0.24731287863982804,0.33331162063574776,Federal-gov:300;Local-gov:680;Private:7589;Self-emp-inc:370;Self-emp-not-inc:844;State-gov:451
