@@ -1,0 +1,44 @@
+`configs/optional/federated_femnist.yaml` (verbatim; comments carry the provenance tag of every key):
+
+```yaml
+# OPTIONAL secondary benchmark: FEMNIST (LEAF), one writer = one natural client, 62 classes,
+# 28x28 images flattened for the same MLP. Never the headline; every result stays
+# [Target / TBD] until somebody runs it. This repository does NOT download FEMNIST: prepare
+# the LEAF JSON shards yourself (https://github.com/TalwalkarLab/leaf) and set data_dir.
+# Every value is [Assumption — not in paper]: chosen by this repository.
+
+base_config: ../federated_adult.yaml  # inherit protocol settings (rounds, optimizer, DP sweep) from the Adult config. [Assumption — not in paper]
+
+experiment:                           # run identity: name, seeds, output folder. [Assumption — not in paper]
+  name: federated_femnist             # run name. [Assumption — not in paper]
+  seeds: [100]                        # development seed only; no reporting run is planned. [Assumption — not in paper]
+  output_dir: experiments/results/runs/federated_femnist   # default --out folder. [Assumption — not in paper]
+
+dataset:                              # which dataset and how it is read and preprocessed. [Assumption — not in paper]
+  kind: femnist                       # use the femnist block. [Assumption — not in paper]
+  adult: null                         # unused. [Assumption — not in paper]
+  femnist:                            # LEAF FEMNIST reader settings. [Assumption — not in paper]
+    data_dir: data/femnist/train      # folder with LEAF-format *.json shards (git-ignored). [Assumption — not in paper]
+    max_writers: 20                   # use the first N eligible writers (sorted id) as clients; 0 = all. [Assumption — not in paper]
+    min_samples_per_writer: 50        # writers with fewer samples are skipped. [Assumption — not in paper]
+    test_fraction: 0.2                # per-writer fraction of samples moved to the shared test set. [Assumption — not in paper]
+
+evaluation:                           # shared evaluation set and fairness breakdown. [Assumption — not in paper]
+  group_attributes: []                # FEMNIST has no evaluation-only attributes. [Assumption — not in paper]
+
+model:                                # network architecture. [Assumption — not in paper]
+  hidden_sizes: [200, 200]            # MLP hidden widths for 784 inputs and 62 classes. [Assumption — not in paper]
+
+dp:                                   # differential-privacy settings (DP-SGD via Opacus). [Assumption — not in paper]
+  delta: 1.0e-3                       # must be below 1 / smallest writer (about 50-400 samples). [Assumption — not in paper]
+
+partitions:                           # client splits. [Assumption — not in paper]
+  splits: [writer, iid]               # natural writer split and the IID control. [Assumption — not in paper]
+  min_client_rows: 20                 # minimum rows per skewed client. [Assumption — not in paper]
+
+baselines:                            # centralised baselines. [Assumption — not in paper]
+  methods: [centralised_mlp, majority_class]   # skip the slow 62-class SVM / forest. [Assumption — not in paper]
+
+aggregation_suite:                    # aggregation suite: sample-weighted FedAvg vs the unweighted mean. [Assumption — not in paper]
+  split: writer                       # weighted vs unweighted on the natural writer split. [Assumption — not in paper]
+```
