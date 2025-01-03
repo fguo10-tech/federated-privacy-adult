@@ -1,0 +1,1 @@
+suite,split,condition,seed,round,accuracy,precision,recall,f1,f1_macro,train_loss,bytes_up_cum,bytes_down_cum,epsilon_max,delta
