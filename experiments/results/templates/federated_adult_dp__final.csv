@@ -1,0 +1,1 @@
+suite,split,method,seed,accuracy,precision,recall,f1,f1_macro,train_loss,fairness_gap_accuracy,fairness_gap_f1,rounds,bytes_total,bytes_up,bytes_down,epsilon_max,delta,train_rows,num_clients,shared_across_splits
