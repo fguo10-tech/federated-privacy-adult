@@ -1,0 +1,23 @@
+# Full draft environment (CPU, laptop scale): core + notebooks + dev tools.
+# Equivalent to:  pip install -e ".[all]"
+# The exact versions this draft was tested with are pinned in requirements-lock.txt.
+
+# --- core: Flower apps, Opacus differential privacy, classical baselines, result tables ---
+numpy>=1.26
+pandas>=2.1
+pyyaml>=6.0
+matplotlib>=3.8
+torch>=2.2
+flwr>=1.44,<2
+opacus>=1.5
+scikit-learn>=1.4
+
+# --- notebooks ---
+nbformat>=5.9
+nbclient>=0.10
+ipykernel>=6.29
+
+# --- development ---
+pytest>=8.0
+ruff>=0.6
+black>=24.0

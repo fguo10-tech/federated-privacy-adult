@@ -1,0 +1,21 @@
+# Exact versions of the direct dependencies this draft was built and tested with
+# (Python 3.12.14, Darwin arm64). requirements.txt and pyproject.toml give
+# the supported ranges; this file reproduces the tested environment:
+#     pip install -r requirements-lock.txt && pip install -e . --no-deps
+# The optional Ray-based Flower simulation engine (extra `flower-sim`) is not pinned here:
+# it has not completed a run on the development machine.
+
+numpy==2.5.5
+pandas==3.1.1
+pyyaml==6.0.3
+matplotlib==3.11.2
+torch==2.15.0
+flwr==1.44.0
+opacus==1.6.0
+scikit-learn==1.9.1
+nbformat==5.11.1
+nbclient==0.11.0
+ipykernel==7.4.0
+pytest==9.2.0
+ruff==0.17.6
+black==26.10.1

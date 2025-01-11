@@ -1,0 +1,96 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "federated-privacy-adult"
+version = "0.1.0.dev0"
+description = "Draft reference implementation: sample-weighted federated averaging with Flower and differential privacy with Opacus on the UCI Adult / Census Income dataset."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Fan Guo" }]
+urls = { Homepage = "https://github.com/fguo10-tech/federated-privacy-adult", Repository = "https://github.com/fguo10-tech/federated-privacy-adult" }
+keywords = [
+    "federated-learning",
+    "differential-privacy",
+    "flower",
+    "opacus",
+    "uci-adult",
+    "reproducibility",
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# Core install: Flower apps, Opacus differential privacy, the classical scikit-learn baselines
+# and the result tables.
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "pyyaml>=6.0",
+    "matplotlib>=3.8",
+    "torch>=2.2",
+    "flwr>=1.44,<2",
+    "opacus>=1.5",
+    "scikit-learn>=1.4",
+]
+
+[project.optional-dependencies]
+# Optional: run the same Flower apps on Flower's Ray-based simulation engine.
+flower-sim = ["flwr[simulation]>=1.44,<2"]
+# Optional: execute the notebook.
+notebooks = [
+    "nbformat>=5.9",
+    "nbclient>=0.10",
+    "ipykernel>=6.29",
+]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+    "black>=24.0",
+]
+all = ["federated-privacy-adult[notebooks,dev]"]
+
+[tool.setuptools.packages.find]
+# The import package is called ``src``, following the folder layout. Install in editable mode
+# from a checkout, and use one virtual environment per project: another project that also
+# installs a package called ``src`` would collide with this one.
+include = ["src", "src.*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+    "slow: longer smoke runs (still CPU, still well under a minute each)",
+    "network: needs internet access (dataset download); deselected in CI",
+    "adult: needs the UCI Adult files under data/adult (run `make data` first)",
+    "flower_sim: needs the optional Ray-based Flower simulation engine",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning:opacus.*",
+    "ignore::FutureWarning:opacus.*",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["notebooks", ".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["src", "experiments"]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+extend-exclude = "notebooks|\\.venv"
